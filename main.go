@@ -6,10 +6,12 @@ import (
 )
 
 func main() {
-    http.HandleFunc("/", handler)
+    http.Handle("/", http.FileServer(http.Dir("./")))
+    http.HandleFunc("/a", handler)
     http.ListenAndServe(":8000", nil)
 }
 
+
 func handler(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprint(w, "Hello World fron Go!")
+    fmt.Fprint(w, r.Method)
 }
